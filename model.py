@@ -2,7 +2,7 @@
 
 from flask.ext import login
 from flask.ext.admin.contrib import sqlamodel
-from amc import db
+from app import db
 
 
 # Create customized model view class

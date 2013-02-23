@@ -1,33 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, url_for, redirect, render_template, request
-from flask.ext import login, admin, wtf
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import url_for, redirect, render_template, request
+from flask.ext import login, admin
 from flask.ext.admin import Admin, BaseView, expose
 from model import User
-
-# Create application
-app = Flask(__name__)
-
-# Create dummy secrey key so we can use sessions
-app.config['SECRET_KEY'] = '123456790'
-
-# Create database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:@localhost/amc?charset=utf8'
-app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
-
-
-# Create customized index view class
-class MyAdminIndexView(admin.AdminIndexView):
-    def is_accessible(self):
-        return login.current_user.is_authenticated()
-
-
-class IndexView(BaseView):
-    @expose('/')
-    def index(self):
-        return self.render('index.html')
+from view import MyAdminIndexView, IndexView
+from app import app, db
 
 
 # Initialize flask-login

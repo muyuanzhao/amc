@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from flask.ext import admin, login, wtf
+from flask.ext import wtf
 from model import User
-from amc import db
+from app import db
 
 
 # Define login and registration forms (for flask-login)
