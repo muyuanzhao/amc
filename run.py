@@ -56,6 +56,8 @@ def register_view():
 def logout_view():
     login.logout_user()
     return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
     # Initialize flask-login
     init_login()
