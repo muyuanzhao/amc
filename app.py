@@ -4,7 +4,7 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
 # Create application
-app = Flask(__name__)
+app = Flask('amc')
 
 # Create dummy secrey key so we can use sessions
 app.config['SECRET_KEY'] = '123456790'
