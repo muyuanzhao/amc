@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask.ext import login
-from flask.ext.admin.contrib import sqlamodel
 from app import db
-
-
-# Create customized model view class
-class MyModelView(sqlamodel.ModelView):
-    def is_accessible(self):
-        return login.current_user.is_authenticated()
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,3 +24,12 @@ class User(db.Model):
     # Required for administrative interface
     def __unicode__(self):
         return self.username
+
+class Credit(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customerId = db.Column(db.Integer)
+    ownMoney = db.Column(db.String(100))
+    ownTime = db.Column(db.String(19))
+    accumulateDebts = db.Column(db.String(100))
+    beizhu = db.Column(db.String(100))
+

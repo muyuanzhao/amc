@@ -2,8 +2,8 @@
 
 from flask import url_for, redirect, render_template, request
 from flask.ext import login, admin
-from model import User
-from view import MyAdminIndexView, IndexView
+from model import User, Credit
+from view import MyAdminIndexView, IndexView, MyModelView
 from app import app, db
 from helper import LoginForm, RegistrationForm
 
@@ -64,7 +64,8 @@ if __name__ == '__main__':
     admin = admin.Admin(app, 'AMC', index_view=MyAdminIndexView())
 
     # Add views
-    admin.add_view(IndexView(name=u'订单处理'))
+    admin.add_view(MyModelView(Credit, db.session))
+    # admin.add_view(IndexView(name=u'订单处理'))
 
     # Create DB
     db.create_all()
