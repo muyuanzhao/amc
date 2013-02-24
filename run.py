@@ -70,14 +70,27 @@ if __name__ == '__main__':
     admin = admin.Admin(app, 'AMC', index_view=MyAdminIndexView())
 
     # Add views
-    #cannot display right if models are too many
-    model_count = 0
-    for m in AUTO_MODEL:
-        model_count += 1
-        if model_count > 15:
-            break
-        admin.add_view(MyModelView(getattr(auto_model, m), db.session))
-    # admin.add_view(IndexView(name=u'订单处理'))
+    for m in auto_model.__all__:
+        _m = m.lower()
+        if 'account' in _m:
+            c = 'Account'
+        elif 'order' in _m:
+            c = 'Order'
+        elif 'shoppingcart' in _m:
+            c = 'E2C'
+        elif 'supplier' in _m:
+            c = 'SCM'
+        elif 'product' in _m:
+            c = 'Product'
+        elif 'inventory' in _m:
+            c = 'Inventory'
+        elif 'customer' in _m:
+            c = 'CRM'
+        elif 'employee' in _m:
+            c = 'HR'
+        else:
+            c = 'Other'
+        admin.add_view(MyModelView(getattr(auto_model, m), db.session, category=c))
 
     # Create DB
     db.create_all()
