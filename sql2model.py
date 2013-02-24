@@ -113,10 +113,6 @@ for line in sql_lines:
 f = codecs.open('auto_model.py', 'w', encoding='utf-8')
 f.write('# -*- coding: utf-8 -*-\n\n')
 f.write('from app import db\n\n')
-f.write('AUTO_MODEL = [%s]\n\n' % ', '.join(output_names))
+f.write('__all__ = [%s]\n\n' % ', '.join(output_names))
 f.write('\n\n'.join(output_classes))
 f.close()
-        
-
-    
-        

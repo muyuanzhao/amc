@@ -2,7 +2,7 @@
 
 from app import db
 
-AUTO_MODEL = ['Credit', 'Customer', 'Delorder', 'Delorderinfo', 'Depart', 'Employee', 'Inaccount', 'Instockinform', 'Inventory', 'Lackorder', 'Msg', 'News', 'Orderinfo', 'Outaccount', 'Paybillaccount', 'Preorder', 'Preorderinfo', 'Product', 'Puraccount', 'Purorder', 'Reminder', 'Reminderinfo', 'Reorder', 'Sellaccount', 'Shoppingcart', 'Supplier', 'T_order']
+__all__ = ['Credit', 'Customer', 'Delorder', 'Delorderinfo', 'Depart', 'Employee', 'Inaccount', 'Instockinform', 'Inventory', 'Lackorder', 'Msg', 'News', 'Orderinfo', 'Outaccount', 'Paybillaccount', 'Preorder', 'Preorderinfo', 'Product', 'Puraccount', 'Purorder', 'Reminder', 'Reminderinfo', 'Reorder', 'Sellaccount', 'Shoppingcart', 'Supplier', 'T_order']
 
 class Credit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
