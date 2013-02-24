@@ -2,10 +2,14 @@
 
 from flask import url_for, redirect, render_template, request
 from flask.ext import login, admin
-from model import User, Credit
-from view import MyAdminIndexView, IndexView, MyModelView
 from app import app, db
+
+import auto_model
+
+from model import User
+from auto_model import *
 from helper import LoginForm, RegistrationForm
+from view import MyAdminIndexView, IndexView, MyModelView
 
 
 # Initialize flask-login
@@ -66,7 +70,13 @@ if __name__ == '__main__':
     admin = admin.Admin(app, 'AMC', index_view=MyAdminIndexView())
 
     # Add views
-    admin.add_view(MyModelView(Credit, db.session))
+    #cannot display right if models are too many
+    model_count = 0
+    for m in AUTO_MODEL:
+        model_count += 1
+        if model_count > 15:
+            break
+        admin.add_view(MyModelView(getattr(auto_model, m), db.session))
     # admin.add_view(IndexView(name=u'订单处理'))
 
     # Create DB
