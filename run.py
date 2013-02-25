@@ -7,9 +7,8 @@ from app import app, db
 import auto_model
 
 from model import User
-from auto_model import *
 from helper import LoginForm, RegistrationForm
-from view import MyAdminIndexView, IndexView, MyModelView
+from view import MyAdminIndexView, IndexView, MyModelView, RoleView
 
 
 # Initialize flask-login
@@ -92,8 +91,16 @@ if __name__ == '__main__':
             c = 'Other'
         admin.add_view(MyModelView(getattr(auto_model, m), db.session, category=c))
 
+    admin.add_view(RoleView(User, db.session))
+
     # Create DB
     db.create_all()
+
+    # Add admin user
+    if User.query.filter_by(login='admin').first() is None:
+        admin = User('admin', 'admin@amc.com', 'admin', '1')
+        db.session.add(admin)
+        db.session.commit()
 
     # Start app
     app.debug = True
