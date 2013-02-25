@@ -7,7 +7,6 @@ from app import app, db
 import auto_model
 
 from model import User
-from auto_model import *
 from helper import LoginForm, RegistrationForm
 from view import MyAdminIndexView, IndexView, MyModelView
 
@@ -91,6 +90,8 @@ if __name__ == '__main__':
         else:
             c = 'Other'
         admin.add_view(MyModelView(getattr(auto_model, m), db.session, category=c))
+
+    admin.add_view(MyModelView(User, db.session))
 
     # Create DB
     db.create_all()
