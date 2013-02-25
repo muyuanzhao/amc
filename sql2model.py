@@ -7,8 +7,6 @@ simple script for transforming sql to python model class, just hard coding not i
 import re
 import codecs
 
-from collections import defaultdict
-
 
 COMMENT_LINE = '--'
 COMMENT_PAIRS = {'START': '/*',
@@ -23,11 +21,13 @@ sql_file = codecs.open('amc.sql', 'r', encoding='utf-8')
 sql_lines = sql_file.readlines()
 sql_file.close()
 
+
 def op_handler(op, data):
     if op == 'create':
         return create_sql(data)
     else:
         return None, None
+
 
 def type_transform(t):
     if t.startswith('int'):
@@ -42,12 +42,13 @@ def type_transform(t):
         print 'What type? -- %s' % t
         return 'db.String(100)'
 
+
 def create_sql(sql):
     #first line is like CREATE TABLE XXX (
     class_name = sql[0].split()[2][1:-1].capitalize()
     if class_name == 'User':
         return None, None
-    
+
     #others until ')'
     attrs = []
     pk = None
@@ -68,7 +69,7 @@ def create_sql(sql):
             attrs.append("    %s = db.Column(%s)" % (attr_name, attr_type))
     attrs = '\n'.join(attrs)
 
-    class_lines = "class %s(db.Model):\n" %  class_name
+    class_lines = "class %s(db.Model):\n" % class_name
     class_lines += attrs
     return "'%s'" % class_name, class_lines
 
@@ -113,6 +114,6 @@ for line in sql_lines:
 f = codecs.open('auto_model.py', 'w', encoding='utf-8')
 f.write('# -*- coding: utf-8 -*-\n\n')
 f.write('from app import db\n\n')
-f.write('__all__ = [%s]\n\n' % ', '.join(output_names))
-f.write('\n\n'.join(output_classes))
+f.write('__all__ = [%s]\n\n\n' % ', '.join(output_names))
+f.write('\n\n\n'.join(output_classes))
 f.close()
