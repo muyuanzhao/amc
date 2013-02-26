@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from flask.ext import wtf
+from flask.ext import wtf, login
+from flask.ext.admin.base import MenuLink
 from model import User
 from app import db
 
@@ -31,3 +32,23 @@ class RegistrationForm(wtf.Form):
     def validate_login(self, field):
         if db.session.query(User).filter_by(login=self.login.data).count() > 0:
             raise wtf.ValidationError('Duplicate username')
+
+
+# Create menu links classes with reloaded accessible
+class AuthenticatedMenuLink(MenuLink):
+    def is_accessible(self):
+        return login.current_user.is_authenticated()
+
+
+class NotAuthenticatedMenuLink(MenuLink):
+    def is_accessible(self):
+        return not login.current_user.is_authenticated()
+
+
+class UsernameMenuLink(AuthenticatedMenuLink):
+    def __init__(self, url):
+        self.url = url
+
+    @property
+    def name(self):
+        return login.current_user.login
