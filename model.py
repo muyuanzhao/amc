@@ -10,7 +10,7 @@ class User(db.Model):
     password = db.Column(db.String(64))
     role = db.Column(db.String(64))
 
-    def __init__(self, login, email, password, role):
+    def __init__(self, login=None, email=None, password=None, role=None):
         self.login = login
         self.email = email
         self.password = password

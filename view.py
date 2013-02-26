@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from flask.ext import login, admin
+from flask.ext import login
 from flask.ext.admin import BaseView, expose
 from flask.ext.admin.contrib import sqlamodel
 from wtforms.fields import SelectField
 from auto_model import Preorder
 
 CUSTOMER_ACCESSIBLE_MODELS = (Preorder,)
-
-
-# Create customized index view class
-class MyAdminIndexView(admin.AdminIndexView):
-    def is_accessible(self):
-        return login.current_user.is_authenticated()
 
 
 class IndexView(BaseView):

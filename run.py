@@ -7,8 +7,9 @@ from app import app, db
 import auto_model
 
 from model import User
-from helper import LoginForm, RegistrationForm
-from view import MyAdminIndexView, IndexView, MyModelView, RoleView
+from helper import LoginForm, RegistrationForm, \
+    UsernameMenuLink, AuthenticatedMenuLink, NotAuthenticatedMenuLink
+from view import MyModelView, RoleView
 
 
 # Initialize flask-login
@@ -24,7 +25,7 @@ def init_login():
 
 @app.route('/')
 def index():
-    return render_template('index.html', user=login.current_user)
+    return redirect(url_for('admin.index'))
 
 
 @app.route('/login/', methods=('GET', 'POST'))
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     init_login()
 
     # Create admin
-    admin = admin.Admin(app, 'AMC', index_view=MyAdminIndexView())
+    admin = admin.Admin(app, 'AMC')
 
     # Add views
     for m in auto_model.__all__:
@@ -93,6 +94,20 @@ if __name__ == '__main__':
 
     admin.add_view(RoleView(User, db.session))
 
+    # Add username link
+    admin.add_link(UsernameMenuLink(url='#'))
+
+    # Add register link by endpoint
+    admin.add_link(NotAuthenticatedMenuLink(name='Register',
+                                            endpoint='register_view'))
+
+    # Add login link by endpoint
+    admin.add_link(NotAuthenticatedMenuLink(name='Login',
+                                            endpoint='login_view'))
+
+    # Add logout link by endpoint
+    admin.add_link(AuthenticatedMenuLink(name='Logout',
+                                         endpoint='logout_view'))
     # Create DB
     db.create_all()
 
