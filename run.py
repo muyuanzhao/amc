@@ -25,7 +25,7 @@ def init_login():
 
 @app.route('/')
 def index():
-    return redirect(url_for('admin.index'))
+    return render_template('shop.html')
 
 
 @app.route('/login/', methods=('GET', 'POST'))
@@ -34,7 +34,7 @@ def login_view():
     if form.validate_on_submit():
         user = form.get_user()
         login.login_user(user)
-        return redirect(url_for('index'))
+        return redirect(url_for('admin.index'))
 
     return render_template('form.html', form=form)
 
@@ -51,7 +51,7 @@ def register_view():
         db.session.commit()
 
         login.login_user(user)
-        return redirect(url_for('index'))
+        return redirect(url_for('admin.index'))
 
     return render_template('form.html', form=form)
 
@@ -59,7 +59,7 @@ def register_view():
 @app.route('/logout/')
 def logout_view():
     login.logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('admin.index'))
 
 
 if __name__ == '__main__':
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # Add views
     for m in auto_model.__all__:
         m = getattr(auto_model, m)
-        admin.add_view(MyModelView(m, db.session, category=m._category()))
+        admin.add_view(MyModelView(m, db.session, category=m.category()))
 
     admin.add_view(RoleView(User, db.session))
 
