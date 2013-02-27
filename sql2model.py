@@ -108,9 +108,9 @@ def create_sql(sql):
     repr_funtion += "    def __repr__(self):\n"
     repr_funtion += "        return %s\n" % representation
 
-    category_funtion = '\n\n'
+    category_funtion = '\n'
     category_funtion += '    @classmethod\n'
-    category_funtion += "    def _category(cls):\n"
+    category_funtion += "    def category(cls):\n"
     category_funtion += "        return '%s'\n" % category
 
     class_lines = "class %s(db.Model):\n" % class_name

@@ -17,9 +17,8 @@ class Credit(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Finance'
 
 
@@ -36,9 +35,8 @@ class Customer(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'People'
 
 
@@ -56,9 +54,8 @@ class Delorder(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -74,9 +71,8 @@ class Delorderinfo(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -88,9 +84,8 @@ class Depart(db.Model):
     def __repr__(self):
         return self.departName
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'People'
 
 
@@ -109,9 +104,8 @@ class Employee(db.Model):
     def __repr__(self):
         return self.empName
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'People'
 
 
@@ -127,9 +121,8 @@ class Inaccount(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Finance'
 
 
@@ -147,9 +140,8 @@ class Instockinform(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Inventory'
 
 
@@ -163,9 +155,8 @@ class Inventory(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Inventory'
 
 
@@ -182,9 +173,8 @@ class Lackorder(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -199,9 +189,8 @@ class Msg(db.Model):
     def __repr__(self):
         return self.userName
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Notice'
 
 
@@ -215,9 +204,8 @@ class News(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Notice'
 
 
@@ -234,9 +222,8 @@ class Orderinfo(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -252,9 +239,8 @@ class Outaccount(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Finance'
 
 
@@ -276,9 +262,8 @@ class Paybillaccount(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Finance'
 
 
@@ -294,9 +279,8 @@ class Preorder(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -313,9 +297,8 @@ class Preorderinfo(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -332,9 +315,8 @@ class Product(db.Model):
     def __repr__(self):
         return self.productName
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Product'
 
 
@@ -355,9 +337,8 @@ class Puraccount(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Finance'
 
 
@@ -377,9 +358,8 @@ class Purorder(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -398,9 +378,8 @@ class Reminder(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Notice'
 
 
@@ -418,9 +397,8 @@ class Reminderinfo(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Notice'
 
 
@@ -438,9 +416,8 @@ class Reorder(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
 
 
@@ -461,9 +438,8 @@ class Sellaccount(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Finance'
 
 
@@ -481,9 +457,8 @@ class Shoppingcart(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'EC'
 
 
@@ -497,9 +472,8 @@ class Supplier(db.Model):
     def __repr__(self):
         return self.supplierName
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Supplier'
 
 
@@ -520,7 +494,6 @@ class T_order(db.Model):
     def __repr__(self):
         return str(self.id)
 
-
     @classmethod
-    def _category(cls):
+    def category(cls):
         return 'Order'
