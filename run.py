@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
+import json
+
+from collections import defaultdict
 from flask import url_for, redirect, render_template, request
 from flask.ext import login, admin
 from app import app, db
 
 import auto_model
 
+from auto_model import *
 from model import User
-from helper import LoginForm, RegistrationForm, \
+from helper import LoginForm, RegistrationForm, CustomerForm, \
     UsernameMenuLink, AuthenticatedMenuLink, NotAuthenticatedMenuLink
 from view import MyModelView, RoleView
 
@@ -25,8 +29,56 @@ def init_login():
 
 @app.route('/')
 def index():
-    return render_template('shop.html')
+    products = db.session.query(auto_model.Product)
+    if login.current_user.is_authenticated():
+        user = login.current_user
+    else:
+        user = None
+    return render_template('shop.html', products=products, user=user)
 
+
+@app.route('/order/', methods=('GET', 'POST'))
+def order():
+    form = request.form
+    products_list = form['products'].split(',')
+    products = defaultdict(int)
+    for p in products_list:
+        products[p] += 1
+    userId = form['userId']
+    if not products:
+        return json.dumps({'result': '没有选择产品'})
+    if not userId:
+        return json.dumps({'result': '没有登录'})
+    customer = db.session.query(Customer).filter_by(userId=userId).first()
+    if not customer:
+        return json.dumps({'result': '请先<a href="/reg_customer/">注册顾客信息</a>'})
+    for productId in products:
+        count = products[productId]
+        product = db.session.query(Product).filter_by(id=productId).first()
+        money = product.salePrice
+        money = str(float(money)*count)
+        cart = Shoppingcart(customerId=customer.id, productId=productId, orderNum=count, money=money, flag=0)
+        db.session.add(cart)
+    db.session.commit()
+    return json.dumps({'result': '订单提交成功'})
+
+
+@app.route('/reg_customer/')
+def customer_view():
+    form = CustomerForm(request.form)
+    if form.validate_on_submit():
+        customer = Customer()
+
+        form.populate_obj(customer)
+
+        customer.userId = login.current_user.id
+
+        db.session.add(customer)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
+    return render_template('form.html', form=form)
 
 @app.route('/login/', methods=('GET', 'POST'))
 def login_view():
@@ -34,7 +86,7 @@ def login_view():
     if form.validate_on_submit():
         user = form.get_user()
         login.login_user(user)
-        return redirect(url_for('admin.index'))
+        return redirect(url_for('index'))
 
     return render_template('form.html', form=form)
 
@@ -51,7 +103,7 @@ def register_view():
         db.session.commit()
 
         login.login_user(user)
-        return redirect(url_for('admin.index'))
+        return redirect(url_for('index'))
 
     return render_template('form.html', form=form)
 
@@ -59,7 +111,7 @@ def register_view():
 @app.route('/logout/')
 def logout_view():
     login.logout_user()
-    return redirect(url_for('admin.index'))
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

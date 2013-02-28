@@ -34,6 +34,16 @@ class RegistrationForm(wtf.Form):
             raise wtf.ValidationError('Duplicate username')
 
 
+class CustomerForm(wtf.Form):
+    name = wtf.TextField(validators=[wtf.required()])
+    address = wtf.TextField(validators=[wtf.required()])
+    phone = wtf.TextField(validators=[wtf.required()])
+    email = wtf.TextField(validators=[wtf.required()])
+
+    def validate_login(self, field):
+        if not login.current_user.is_authenticated():
+            raise wtf.ValidationError('Not login')
+
 # Create menu links classes with reloaded accessible
 class AuthenticatedMenuLink(MenuLink):
     def is_accessible(self):
