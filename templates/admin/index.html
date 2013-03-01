@@ -6,51 +6,13 @@
 {% endblock %}
 
 {% block body %}
-      <h1>AMC shopping</h1>
-      <div id="nav">
-	<div id="user">
-	  {% if not user %}
-	  请<a href="/login/">登录</a>或<a href="/register/">注册</a>
-	  {% else %}
-	  欢迎, {{ user.login }}
-	  {% endif %}
-	</div>
-      </div>
-      <div>
-	<div id="shopping_list">
-	  <table cellspacing="0">
-	    <tr>
-	      <th>商品名</th><th>编号</th><th>价格</th><th>描述</th><th></th>
-	    </tr>
-	    {% for p in products %}
-	    <tr>
-	      <td>{{ p.productName }}</td>
-	      <td>{{ p.originalId }}</td>
-	      <td>{{ p.salePrice }}</td>
-	      <td>{{ p.description }}</td>
-	      <td><button id="{{ p.id }}" name="{{ p.productName }}" price="{{ p.salePrice }}" class="add_chart">加入购物篮</button></td>
-	    </tr>
-	    {% endfor %}
-	  </table>
-	</div>
-	<div id="shopping_cart">
-	    我的购物篮:
-	  <p id="shopping_info">
-	    还没有商品被选购
-	  </p>
-	  <p>
-	  </p>
-	  <p id="shopping_money">
-	    价格总计: 0
-	  </p>
-	  <form id="submit_form" action="/order/">
-	    <input type="submit" />
-	  </form>
-	  <p id="msg"></p>
-	</div>
-	<div class="clear_float"></div>
-      </div>
-
+    <h2>Shopping</h2>
+    <div class="simpleCart_shelfItem">
+        <h2 class="item_name"> Awesome T-shirt </h2>
+        <input type="text" value="1" class="item_Quantity">
+        <span class="item_price">$35.99</span>
+        <a class="item_add" href="javascript:;"> Add to Cart </a>
+    </div>
 {% endblock %}
 {% block tail %}
 	<script>
@@ -61,4 +23,13 @@
 	  {% endif %}
 	</script>
 	<script src="{{ url_for('static', filename='js/shopping.js') }}"></script>
+    <script src="simpleCart.js"></script>
+    <script>
+        simpleCart({
+            checkout: {
+                type: "PayPal" ,
+                email: "you@yours.com"
+            }
+        });
+    </script>
 {% endblock %}
