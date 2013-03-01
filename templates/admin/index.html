@@ -5,18 +5,6 @@
 <link href="{{ url_for('static', filename='css/shopping.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block head %}
-	<script>
-	  {% if not user %}
-	  var userId = null;
-	  {% else %}
-	  var userId = {{ user.id }};
-	  {% endif %}
-	</script>
-	<script src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/shopping.js') }}"></script>
-{% endblock %}
-
 {% block body %}
       <h1>AMC shopping</h1>
       <div id="nav">
@@ -63,4 +51,14 @@
 	<div class="clear_float"></div>
       </div>
 
+{% endblock %}
+{% block tail %}
+	<script>
+	  {% if not user %}
+	  var userId = null;
+	  {% else %}
+	  var userId = {{ user.id }};
+	  {% endif %}
+	</script>
+	<script src="{{ url_for('static', filename='js/shopping.js') }}"></script>
 {% endblock %}
