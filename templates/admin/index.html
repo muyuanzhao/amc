@@ -1,0 +1,35 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/shopping.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h2>Shopping</h2>
+    <div class="simpleCart_shelfItem">
+        <h2 class="item_name"> Awesome T-shirt </h2>
+        <input type="text" value="1" class="item_Quantity">
+        <span class="item_price">$35.99</span>
+        <a class="item_add" href="javascript:;"> Add to Cart </a>
+    </div>
+{% endblock %}
+{% block tail %}
+	<script>
+	  {% if not user %}
+	  var userId = null;
+	  {% else %}
+	  var userId = {{ user.id }};
+	  {% endif %}
+	</script>
+	<script src="{{ url_for('static', filename='js/shopping.js') }}"></script>
+    <script src="simpleCart.js"></script>
+    <script>
+        simpleCart({
+            checkout: {
+                type: "PayPal" ,
+                email: "you@yours.com"
+            }
+        });
+    </script>
+{% endblock %}

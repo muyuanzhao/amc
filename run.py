@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json
+import simplejson as json
 
 from collections import defaultdict
 from flask import url_for, redirect, render_template, request
@@ -29,12 +29,7 @@ def init_login():
 
 @app.route('/')
 def index():
-    products = db.session.query(auto_model.Product)
-    if login.current_user.is_authenticated():
-        user = login.current_user
-    else:
-        user = None
-    return render_template('shop.html', products=products, user=user)
+    return redirect(url_for('admin.index'))
 
 
 @app.route('/order/', methods=('GET', 'POST'))
@@ -56,7 +51,7 @@ def order():
         count = products[productId]
         product = db.session.query(Product).filter_by(id=productId).first()
         money = product.salePrice
-        money = str(float(money)*count)
+        money = str(float(money) * count)
         cart = Shoppingcart(customerId=customer.id, productId=productId, orderNum=count, money=money, flag=0)
         db.session.add(cart)
     db.session.commit()
@@ -79,6 +74,7 @@ def customer_view():
         return redirect(url_for('index'))
 
     return render_template('form.html', form=form)
+
 
 @app.route('/login/', methods=('GET', 'POST'))
 def login_view():
