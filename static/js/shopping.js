@@ -1,50 +1,44 @@
-var total_money = 0.0
-var product = []
-var product_count = {}
-var chart_status = 0
-
-function submit_form(event) {
-    var form = $(this);
-    event.preventDefault();
-    if(product.length && userId)
-	$.post(form.attr("action"), {"products": product.join(","), "userId": userId}, submit_callback, "json");
-    return false;
-}
-
-function submit_callback(data) {
-    $("#msg").html(data['result']).hide(10000);
-}
-
-$(document).ready(function(e) {
-    $(".add_chart").click(function(e) {
-	var target = $(e.target);
-	var id = target.attr("id");
-	var name = target.attr("name");
-	var price = target.attr("price");
-	if(!(name in product_count)) {
-	    product_count[name] = 1;
-	}
-	else {
-	    product_count[name] += 1;
-	}
-	count = product_count[name];
-	console.log(product_count);
-	total_money += parseFloat(price);
-	product.push(id);
-	if(!chart_status) {
-	    $("#shopping_info").html("<ul><li>"+name+" * "+count+"</li></ul>");
-	    chart_status = !chart_status;
-	}
-	else {
-	    var html_str = "<ul>";
-	    for(name in product_count) {
-		html_str += "<li>"+name+" * "+product_count[name]+"</li>";
-	    }
-	    html_str += "</ul>";
-	    $("#shopping_info").html(html_str);
-	}
-	$("#shopping_money").html("价格总计: "+total_money);
-    });
-
-    $("#submit_form").submit(submit_form);
+$("#demo .simpleCart_shelfItem").mouseenter(function(event) {
+    $(this).find('.tooltip').fadeIn(200);
 });
+$("#demo .simpleCart_shelfItem").mouseleave(function(event) {
+    $(this).find('.tooltip').fadeOut(200);
+});
+
+$("header .cartInfo").toggle(function(){
+    $("#cartPopover").show();
+    $("header .cartInfo").addClass('open');
+}, function(){
+    $("#cartPopover").hide();
+    $("header .cartInfo").removeClass('open');
+});
+
+
+$("#demoShelf .simpleCart_shelfItem:eq(0)").css('left', '310px');
+$("#demoShelf .simpleCart_shelfItem:eq(1)").css('left', '171px');
+$("#demoShelf .simpleCart_shelfItem:eq(2)").css('left', '29px');
+$("#demoShelf .simpleCart_shelfItem").delay(500).animateStep({css:{top:'0px'},delay:100,speed:100});
+$("#demoShelf .simpleCart_shelfItem").click(function(){
+    $(".intro").css('overflow','visible');
+    var clone = $(this).clone(),
+        position = $(this).position(),
+        bezier_params = {
+        start: { 
+          x: position.left, 
+          y: 0, 
+          angle: -90
+        },  
+        end: { 
+          x:310,
+          y:-210, 
+          angle: 180, 
+          length: .2
+        }
+      };
+
+    clone.appendTo('#demoShelf');
+    clone.find('.tooltip').hide();
+    clone.addClass('addDemoAnimation');
+    clone.animate({path : new $.path.bezier(bezier_params)}, 600);
+});
+

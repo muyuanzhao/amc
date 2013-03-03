@@ -7,13 +7,156 @@
 
 {% block body %}
     <h2>Shopping</h2>
-    <div class="simpleCart_shelfItem">
-        <h2 class="item_name"> Awesome T-shirt </h2>
-        <input type="text" value="1" class="item_Quantity">
-        <span class="item_price">$35.99</span>
-        <a class="item_add" href="javascript:;"> Add to Cart </a>
-    </div>
+    <header>
+        <div id="content">
+            <div class="cartInfo"><span class="simpleCart_quantity">0</span> items</div>
+            <div id="cartPopover" style="display: none;">
+                <div id="triangle">▲</div>
+                <div class="simpleCart_items">
+                    <div>
+                        <div class="headerRow">
+                            <div class="item-custom"></div>
+                            <div class="item-name"></div>
+                            <div class="item-total"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cartData" class="clearfix">
+                    <div class="left"><strong>Items: </strong><span class="simpleCart_quantity">0</span></div>
+                    <div class="right"><strong>Total: </strong><span class="simpleCart_total">$0</span></div>
+                </div>
+                <div id="popoverButtons" class="clearfix">
+                    <a href="/cart/" class="hudbtn left">View</a>
+                    <a href="javascript:;" class="simpleCart_checkout hudbtn primary right">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="intro" style="overflow: visible;">
+        <div id="demo">
+            <div id="demoShelf">
+                <div class="row show-grid">
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$19.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l1.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Inception</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$59.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l2.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">NHL 12</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$12.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l3.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Good To Great</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$12.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l4.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Good To Great</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$12.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l1.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Good To Great</span>
+                    </div>
+                </div>
+                <div class="row show-grid">
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$19.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l1.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Inception</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$59.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l2.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">NHL 12</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$12.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l3.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Good To Great</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$12.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l4.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Good To Great</span>
+                    </div>
+                    <div class="simpleCart_shelfItem span2">
+                        <div class="tooltip" style="display: none;">
+                            <span class="item_price">$12.99</span>
+                            <a href="javascript:;" class="item_add">Add to Cart</a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/l1.jpg') }}" width="135px" height="135px" alt="Sample Product" class="item_image item_add">
+                        <span class="item_name">Good To Great</span>
+                    </div>
+                </div>
+
+                <div class="simpleCart_shelfItem addDemoAnimation" style="left: 310px; top: -210px;">
+                    <div class="tooltip" style="display: none;">
+                        <span class="item_price">$12.99</span>
+                        <a href="javascript:;" class="item_add">Add to Cart</a>
+                    </div>
+                    <img src="/assets/images/goodtogreat.png" alt="Sample Product" class="item_image item_add">
+                    <span class="item_name">Good To Great</span>
+                </div>
+                <div class="simpleCart_shelfItem addDemoAnimation" style="left: 310px; top: -210px;">
+                    <div class="tooltip" style="display: none;">
+                        <span class="item_price">$12.99</span>
+                        <a href="javascript:;" class="item_add">Add to Cart</a>
+                    </div>
+                    <img src="/assets/images/goodtogreat.png" alt="Sample Product" class="item_image item_add">
+                    <span class="item_name">Good To Great</span>
+                </div>
+                <div class="simpleCart_shelfItem addDemoAnimation" style="left: 310px; top: -210px;">
+                    <div class="tooltip" style="display: none;">
+                        <span class="item_price">$12.99</span>
+                        <a href="javascript:;" class="item_add">Add to Cart</a>
+                    </div>
+                    <img src="/assets/images/goodtogreat.png" alt="Sample Product" class="item_image item_add">
+                    <span class="item_name">Good To Great</span>
+                </div>
+                <div class="simpleCart_shelfItem addDemoAnimation" style="left: 310px; top: -210px;">
+                    <div class="tooltip" style="display: none;">
+                        <span class="item_price">$12.99</span>
+                        <a href="javascript:;" class="item_add">Add to Cart</a>
+                    </div>
+                    <img src="/assets/images/goodtogreat.png" alt="Sample Product" class="item_image item_add">
+                    <span class="item_name">Good To Great</span>
+                </div>
+            </div>
+        </div><!--End #demo -->
+    </section>
 {% endblock %}
+
 {% block tail %}
 	<script>
 	  {% if not user %}
@@ -26,10 +169,20 @@
     <script src="simpleCart.js"></script>
     <script>
         simpleCart({
-            checkout: {
-                type: "PayPal" ,
-                email: "you@yours.com"
-            }
+            cartColumns: [
+                { view: function(item, column){
+                    return  "<span>"+item.get('quantity')+"</span>" + 
+                            "<div>" +
+                                "<a href='javascript:;' class='simpleCart_increment'><img src='/assets/images/increment.png' title='+1' alt='arrow up'/></a>" +
+                                "<a href='javascript:;' class='simpleCart_decrement'><img src='/assets/images/decrement.png' title='-1' alt='arrow down'/></a>" +
+                            "</div>";
+                }, attr: 'custom' },
+                { attr: "name", label: false },
+                { view: "currency", attr: "total", label: "SubTotal" },
+                { view: "remove", text: "Remove", label: false}
+            ],
+
+            cartStyle: "div",
         });
     </script>
 {% endblock %}
