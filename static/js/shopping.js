@@ -19,25 +19,17 @@ $(function(){
     $("#demoShelf .simpleCart_shelfItem").click(function(){
         $(".intro").css('overflow','visible');
         var clone = $(this).clone(),
-            position = $(this).position(),
-            bezier_params = {
-            start: {
-              x: position.left,
-              y: 0,
-              angle: -90
-            },
-            end: {
-              x:1088,
-              y:44,
-              angle: 180,
-              length: .2
-            }
-          };
+            position = $(this).position();
         clone.appendTo('#demoShelf');
         clone.find('.mytooltip').hide();
         clone.addClass('addDemoAnimation');
+        clone.removeClass('span2');
         clone.css('position', 'absolute');
-        clone.animate({path : new $.path.bezier(bezier_params)}, 600);
+        clone.animate({
+            crSpline: $.crSpline.buildSequence([[position.left, position.top], [2400-position.left, 200-position.top]]),
+            duration: 600,
+            width:"0px"
+        });
     });
     
     
