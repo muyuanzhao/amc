@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import simplejson as json
-
-from collections import defaultdict
 from flask import url_for, redirect, render_template, request
 from flask.ext import login, admin
 from app import app, db
@@ -13,7 +10,7 @@ from auto_model import *
 from model import User
 from helper import LoginForm, RegistrationForm, CustomerForm, \
     UsernameMenuLink, AuthenticatedMenuLink, NotAuthenticatedMenuLink
-from view import MyModelView, RoleView
+from view import CartView, MyModelView, RoleView
 
 
 # Initialize flask-login
@@ -32,34 +29,8 @@ def index():
     return redirect(url_for('admin.index'))
 
 
-@app.route('/order/', methods=('GET', 'POST'))
-def order():
-    form = request.form
-    products_list = form['products'].split(',')
-    products = defaultdict(int)
-    for p in products_list:
-        products[p] += 1
-    userId = form['userId']
-    if not products:
-        return json.dumps({'result': '没有选择产品'})
-    if not userId:
-        return json.dumps({'result': '没有登录'})
-    customer = db.session.query(Customer).filter_by(userId=userId).first()
-    if not customer:
-        return json.dumps({'result': '请先<a href="/reg_customer/">注册顾客信息</a>'})
-    for productId in products:
-        count = products[productId]
-        product = db.session.query(Product).filter_by(id=productId).first()
-        money = product.salePrice
-        money = str(float(money) * count)
-        cart = Shoppingcart(customerId=customer.id, productId=productId, orderNum=count, money=money, flag=0)
-        db.session.add(cart)
-    db.session.commit()
-    return json.dumps({'result': '订单提交成功'})
-
-
 @app.route('/reg_customer/')
-def customer_view():
+def reg_customer_view():
     form = CustomerForm(request.form)
     if form.validate_on_submit():
         customer = Customer()
@@ -123,6 +94,7 @@ if __name__ == '__main__':
         admin.add_view(MyModelView(m, db.session, category=m.category()))
 
     admin.add_view(RoleView(User, db.session))
+    admin.add_view(CartView(name='Cart'))
 
     # Add username link
     admin.add_link(UsernameMenuLink(url='#'))

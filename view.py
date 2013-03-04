@@ -9,10 +9,13 @@ from auto_model import Preorder
 CUSTOMER_ACCESSIBLE_MODELS = (Preorder,)
 
 
-class IndexView(BaseView):
+class CartView(BaseView):
+    def is_accessible(self):
+        return login.current_user.is_authenticated()
+
     @expose('/')
     def index(self):
-        return self.render('index.html')
+        return self.render('cart.html')
 
 
 # Create customized model view class
