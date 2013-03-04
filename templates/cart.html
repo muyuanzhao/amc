@@ -1,0 +1,30 @@
+{% extends 'admin/index.html' %}
+
+{% block body %}
+    <h2>Cart</h2>
+    <!-- show the cart -->
+    <div class="simpleCart_items"></div>
+{% endblock %}
+
+{% block tail %}
+    <script src="{{ url_for('static', filename='js/simpleCart.min.js') }}"></script>
+    <script>
+        simpleCart({
+            //Setting the Cart Columns for the sidebar cart display.
+            cartColumns: [
+                { attr: "image", label: false, view: "image"},
+                //Name of the item
+                { attr: "name" , label: "Name" },
+                //Quantity displayed as an input
+                { attr: "quantity", label: "Quantity", view: "input"},
+                //Built in view for a remove link
+                { view:'remove', text: "Remove", label: false},
+                //Price of item
+                { attr: "price", label: "Price"},
+                //Subtotal of that row (quantity of that item * the price)
+                { attr: "total" , label: "Subtotal", view: "currency"  }
+            ],
+            cartStyle: "table"
+        });
+    </script>
+{% endblock %}
