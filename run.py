@@ -93,8 +93,12 @@ if __name__ == '__main__':
         m = getattr(auto_model, m)
         c = m.category()
         n = m.name()
+        desc = m.desc()
         if c != 'Other':
-            admin.add_view(MyModelView(m, db.session, name=n, category=c))
+            if desc != 'None':
+                admin.add_view(MyModelView(m, db.session, name=n, category=c, desc=desc))
+            else:
+                admin.add_view(MyModelView(m, db.session, name=n, category=c))
 
     admin.add_view(RoleView(User, db.session))
     admin.add_view(CartView(name='Cart'))

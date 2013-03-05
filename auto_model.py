@@ -25,6 +25,10 @@ class Customer(db.Model):
     def name(cls):
         return u'客户信息'
 
+    @classmethod
+    def desc(cls):
+        return u'None'
+
 
 class Credit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,6 +49,10 @@ class Credit(db.Model):
     @classmethod
     def name(cls):
         return u'客户信用'
+
+    @classmethod
+    def desc(cls):
+        return u'在填写备货单时，要查阅顾客档案，将顾客的详细收货地址、收货人、顾客的信用及其它有关内容镇人。在收到新顾客的订单后，由负责处理此订单的人员将该顾客的详细情况记载在顾客档案中。会计室要及时将顾客的失信情况填写失信通知单（附表8）通知销售办公室，由销售办公室记录在顾客档案上。'
 
 
 class Employee(db.Model):
@@ -67,6 +75,10 @@ class Employee(db.Model):
     def name(cls):
         return u'员工信息'
 
+    @classmethod
+    def desc(cls):
+        return u'None'
+
 
 class Supplier(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -85,6 +97,10 @@ class Supplier(db.Model):
     def name(cls):
         return u'供货商信息'
 
+    @classmethod
+    def desc(cls):
+        return u'None'
+
 
 class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -102,6 +118,10 @@ class Inventory(db.Model):
     @classmethod
     def name(cls):
         return u'库存信息'
+
+    @classmethod
+    def desc(cls):
+        return u'仓库根据备货单备货，填写出、人库台帐，修改库存。当某备货单上的项目全部处理完后，交打字员小吴打印一式四份的发货单（附表4），一份留底，三份连同货物交包装、发货组。在备货的同时，要检查每种配件的库存水平，如已达到“再订货水平”、“危险水平”或“缺货水平”，除在货物架上放置有关卡片外，要填写再订货通知单（附表5）交采购办公室。当收到进货通知单和新购入的配件后，要登帐和上架。所有货物的运输都由搬运工负责。'
 
 
 class Product(db.Model):
@@ -122,6 +142,10 @@ class Product(db.Model):
     @classmethod
     def name(cls):
         return u'产品信息'
+
+    @classmethod
+    def desc(cls):
+        return u'None'
 
 
 class Delorder(db.Model):
@@ -145,6 +169,10 @@ class Delorder(db.Model):
     def name(cls):
         return u'删除订单'
 
+    @classmethod
+    def desc(cls):
+        return u'None'
+
 
 class Delorderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -164,6 +192,10 @@ class Delorderinfo(db.Model):
     @classmethod
     def name(cls):
         return u'Other'
+
+    @classmethod
+    def desc(cls):
+        return u'None'
 
 
 class Lackorder(db.Model):
@@ -186,6 +218,10 @@ class Lackorder(db.Model):
     def name(cls):
         return u'缺货单'
 
+    @classmethod
+    def desc(cls):
+        return u'对于可供货项目和部分可供货的项目，按订单号分别开备货单（附表3）交仓库，同时修改库存记录。对于完全缺货的订单另行保管；对于部分缺货的订单先供应一部分，将尚缺的数量用订单缺件表（附表1）记载下来。'
+
 
 class Orderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -207,6 +243,10 @@ class Orderinfo(db.Model):
     def name(cls):
         return u'Other'
 
+    @classmethod
+    def desc(cls):
+        return u'None'
+
 
 class Preorder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -226,6 +266,10 @@ class Preorder(db.Model):
     @classmethod
     def name(cls):
         return u'备货单'
+
+    @classmethod
+    def desc(cls):
+        return u'在填写备货单时，要查阅顾客档案，将顾客的详细收货地址、收货人、顾客的信用及其它有关内容镇人。在收到新顾客的订单后，由负责处理此订单的人员将该顾客的详细情况记载在顾客档案中。备货单上要有订货单位的自编号和本公司接收订单的统一编号。每天11：00和16：00由办事员小彭统一将备货单送到仓库。'
 
 
 class Preorderinfo(db.Model):
@@ -247,6 +291,10 @@ class Preorderinfo(db.Model):
     @classmethod
     def name(cls):
         return u'Other'
+
+    @classmethod
+    def desc(cls):
+        return u'None'
 
 
 class Paybillaccount(db.Model):
@@ -274,6 +322,10 @@ class Paybillaccount(db.Model):
     def name(cls):
         return u'付款账户'
 
+    @classmethod
+    def desc(cls):
+        return u'在收到供货厂家的催款单后，记应付帐、付款。待发票寄来后，还要转采购业务帐。'
+
 
 class Puraccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -298,6 +350,10 @@ class Puraccount(db.Model):
     @classmethod
     def name(cls):
         return u'采购账户'
+
+    @classmethod
+    def desc(cls):
+        return u'通常，本公司的采购部是采用订单订货，当收到厂家发来的汽车配件和催款单后，根据订单留底进行货、款核对，然后，催款单交会计室，验收后的配件交库房，另外，填写进货通知单（附表9）一式两份，一份随同配件送库房，一份送销售办公室。'
 
 
 class Sellaccount(db.Model):
@@ -324,6 +380,10 @@ class Sellaccount(db.Model):
     def name(cls):
         return u'销售账户'
 
+    @classmethod
+    def desc(cls):
+        return u'会计室对发货单（3）进行计价，记应收帐，开催款单（附表6），并将催款单寄给顾客 当收到顾客货款（支票、汇款单或银行转帐通知单）后，转销售业务帐，开发票（附表7）寄给顾客。'
+
 
 class Purorder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -348,6 +408,10 @@ class Purorder(db.Model):
     def name(cls):
         return u'采购订单'
 
+    @classmethod
+    def desc(cls):
+        return u'采购办公室订货主要是根据供货厂家的产品目录和销售办公室提供的缺货通知单及仓库提供的再订货通知单，有时，也由推销员提供一些需要采购的新品种。通常，本公司的采购部是采用订单订货，当收到厂家发来的汽车配件和催款单后，根据订单留底进行货、款核对，然后，催款单交会计室，验收后的配件交库房，另外，填写进货通知单（附表9）一式两份，一份随同配件送库房，一份送销售办公室。'
+
 
 class Reminder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -371,6 +435,10 @@ class Reminder(db.Model):
     def name(cls):
         return u'订单提醒'
 
+    @classmethod
+    def desc(cls):
+        return u'当收到进货通知单后，赵清玉和小杨先修改库存记录，再进行缺货处理。为了使缺货证件及时得到补充，必须尽早填写缺货通知单（附表2）送采购部门。'
+
 
 class Reminderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -393,6 +461,10 @@ class Reminderinfo(db.Model):
     def name(cls):
         return u'Other'
 
+    @classmethod
+    def desc(cls):
+        return u'None'
+
 
 class Reorder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -414,6 +486,10 @@ class Reorder(db.Model):
     @classmethod
     def name(cls):
         return u'再订货订单'
+
+    @classmethod
+    def desc(cls):
+        return u'None'
 
 
 class Torder(db.Model):
@@ -439,6 +515,10 @@ class Torder(db.Model):
     def name(cls):
         return u'订单信息'
 
+    @classmethod
+    def desc(cls):
+        return u'销售办公室的李英专门负责订单校验，若遇有填写不清楚或错误的订单退回给顾客。然后，由张小辉等三人根据订单上的配件项目，逐项查阅库存记录，将缺货项目和可供货项目分开。'
+
 
 class Shoppingcart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -459,3 +539,7 @@ class Shoppingcart(db.Model):
     @classmethod
     def name(cls):
         return u'Other'
+
+    @classmethod
+    def desc(cls):
+        return u'None'

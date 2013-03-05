@@ -27,6 +27,13 @@ class MyModelView(sqlamodel.ModelView):
         for line in tf.readlines():
             db_name, view_name = line.strip().split()
             column_labels[db_name] = view_name
+    
+    def __init__(self, model, session,
+                 name=None, category=None, endpoint=None, url=None, desc=None):
+        self.desc = desc
+        super(MyModelView, self).__init__(model, session,
+                                          name=name, category=category, endpoint=endpoint, url=url)
+
     def is_accessible(self):
         # add user access level
         return login.current_user.is_authenticated() \
