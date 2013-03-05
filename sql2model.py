@@ -19,7 +19,7 @@ OPS = ('SET',
        'CREATE',
        )
 
-category_dict = {'Credit': 'Finance', 'Customer': 'People', 'Delorder': 'Order', 'Delorderinfo': 'Order', 'Depart': 'People', 'Employee': 'People', 'Inaccount': 'Finance', 'Instockinform': 'Inventory', 'Inventory': 'Inventory', 'Lackorder': 'Order', 'Msg': 'Notice', 'News': 'Notice', 'Orderinfo': 'Order', 'Outaccount': 'Finance', 'Paybillaccount': 'Finance', 'Preorder': 'Order', 'Preorderinfo': 'Order', 'Product': 'Product', 'Puraccount': 'Finance', 'Purorder': 'Order', 'Reminder': 'Notice', 'Reminderinfo': 'Notice', 'Reorder': 'Order', 'Sellaccount': 'Finance', 'Shoppingcart': 'EC', 'Supplier': 'Supplier', 'T_order': 'Order'}
+category_dict = {'Credit': u'销售部', 'Customer': u'销售部', 'Delorder': u'订单', 'Delorderinfo': 'Other', 'Employee': u'员工', 'Inventory': u'库存部', 'Lackorder': u'订单', 'Orderinfo': 'Other',  'Paybillaccount': u'财务部', 'Preorder': u'订单', 'Preorderinfo': 'Other', 'Product': u'产品', 'Puraccount': u'财务部', 'Purorder': u'订单', 'Reminder': u'提醒', 'Reminderinfo': 'Other', 'Reorder': u'订单', 'Sellaccount': u'财务部', 'Shoppingcart': 'Other', 'Supplier': u'供货商', 'Torder': u'订单'}
 
 sql_file = codecs.open('amc.sql', 'r', encoding='utf-8')
 sql_lines = sql_file.readlines()
@@ -80,16 +80,7 @@ def create_sql(sql):
                 attr_name_without_id = attr_name[:-2].lower()
                 #specify FK
                 if attr_name_without_id == 'order':
-                    attr_name_without_id = 'T_order'
-                elif attr_name_without_id == 'original':
-                    attrs.append("    %s = db.Column(%s)" % (attr_name, attr_type))
-                    continue
-                elif attr_name_without_id == 'empdepart':
-                    attr_name_without_id = 'depart'
-                elif attr_name_without_id == 'unitedorder':
-                    attrs.append("    %s = db.Column(%s)" % (attr_name, attr_type))
-                    continue
-
+                    attr_name_without_id = 'torder'
                 attrs.append("    %s = db.Column(%s, db.ForeignKey('%s.id'))" % (attr_name,
                                                                                  attr_type, attr_name_without_id))
                 attrs.append("    %s = db.relationship('%s', primaryjoin='%s.id==%s.%s')" % (attr_name_without_id,
@@ -111,7 +102,7 @@ def create_sql(sql):
     category_funtion = '\n'
     category_funtion += '    @classmethod\n'
     category_funtion += "    def category(cls):\n"
-    category_funtion += "        return '%s'\n" % category
+    category_funtion += "        return u'%s'" % category
 
     class_lines = "class %s(db.Model):\n" % class_name
     class_lines += attrs

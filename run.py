@@ -91,7 +91,9 @@ if __name__ == '__main__':
     # Add views
     for m in auto_model.__all__:
         m = getattr(auto_model, m)
-        admin.add_view(MyModelView(m, db.session, category=m.category()))
+        c = m.category()
+        if c != 'Other':
+            admin.add_view(MyModelView(m, db.session, category=c))
 
     admin.add_view(RoleView(User, db.session))
     admin.add_view(CartView(name='Cart'))
