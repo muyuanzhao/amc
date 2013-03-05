@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import codecs
+
 from flask.ext import login
 from flask.ext.admin import BaseView, expose
 from flask.ext.admin.contrib import sqlamodel
@@ -20,6 +22,11 @@ class CartView(BaseView):
 
 # Create customized model view class
 class MyModelView(sqlamodel.ModelView):
+    column_labels = {}
+    with codecs.open(r'i18n/zh_cn.txt', 'r', encoding='utf-8') as tf:
+        for line in tf.readlines():
+            db_name, view_name = line.strip().split()
+            column_labels[db_name] = view_name
     def is_accessible(self):
         # add user access level
         return login.current_user.is_authenticated() \

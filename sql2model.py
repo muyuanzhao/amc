@@ -21,6 +21,8 @@ OPS = ('SET',
 
 category_dict = {'Credit': u'销售部', 'Customer': u'销售部', 'Delorder': u'订单', 'Delorderinfo': 'Other', 'Employee': u'员工', 'Inventory': u'库存部', 'Lackorder': u'订单', 'Orderinfo': 'Other',  'Paybillaccount': u'财务部', 'Preorder': u'订单', 'Preorderinfo': 'Other', 'Product': u'产品', 'Puraccount': u'财务部', 'Purorder': u'订单', 'Reminder': u'提醒', 'Reminderinfo': 'Other', 'Reorder': u'订单', 'Sellaccount': u'财务部', 'Shoppingcart': 'Other', 'Supplier': u'供货商', 'Torder': u'订单'}
 
+name_dict = {'Credit': u'客户信用', 'Customer': u'客户信息', 'Delorder': u'删除订单', 'Delorderinfo': 'Other', 'Employee': u'员工信息', 'Inventory': u'库存信息', 'Lackorder': u'缺货单', 'Orderinfo': 'Other',  'Paybillaccount': u'付款账户', 'Preorder': u'备货单', 'Preorderinfo': 'Other', 'Product': u'产品信息', 'Puraccount': u'采购账户', 'Purorder': u'采购订单', 'Reminder': u'订单提醒', 'Reminderinfo': 'Other', 'Reorder': u'再订货订单', 'Sellaccount': u'销售账户', 'Shoppingcart': 'Other', 'Supplier': u'供货商信息', 'Torder': u'订单信息'}
+
 sql_file = codecs.open('amc.sql', 'r', encoding='utf-8')
 sql_lines = sql_file.readlines()
 sql_file.close()
@@ -58,6 +60,7 @@ def create_sql(sql):
     pk = None
     representation = None
     category = category_dict.get(class_name, 'Other')
+    name = name_dict.get(class_name, 'Other')
     for line in sql[1:-1]:
         if line.startswith('PRIMARY KEY'):
             pk = line.split()[2][2:-2]
@@ -95,19 +98,25 @@ def create_sql(sql):
         representation = 'str(self.id)'
     else:
         representation = 'self.%s' % representation
-    repr_funtion = '\n\n'
-    repr_funtion += "    def __repr__(self):\n"
-    repr_funtion += "        return %s\n" % representation
+    repr_function = '\n\n'
+    repr_function += "    def __repr__(self):\n"
+    repr_function += "        return %s\n" % representation
 
-    category_funtion = '\n'
-    category_funtion += '    @classmethod\n'
-    category_funtion += "    def category(cls):\n"
-    category_funtion += "        return u'%s'" % category
+    category_function = '\n'
+    category_function += '    @classmethod\n'
+    category_function += "    def category(cls):\n"
+    category_function += "        return u'%s'\n" % category
+
+    name_function = '\n'
+    name_function += '    @classmethod\n'
+    name_function += "    def name(cls):\n"
+    name_function += "        return u'%s'" % name
 
     class_lines = "class %s(db.Model):\n" % class_name
     class_lines += attrs
-    class_lines += repr_funtion
-    class_lines += category_funtion
+    class_lines += repr_function
+    class_lines += category_function
+    class_lines += name_function
     return "'%s'" % class_name, class_lines
 
 comment_flag = False

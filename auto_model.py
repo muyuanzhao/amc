@@ -21,6 +21,10 @@ class Customer(db.Model):
     def category(cls):
         return u'销售部'
 
+    @classmethod
+    def name(cls):
+        return u'客户信息'
+
 
 class Credit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,6 +41,10 @@ class Credit(db.Model):
     @classmethod
     def category(cls):
         return u'销售部'
+
+    @classmethod
+    def name(cls):
+        return u'客户信用'
 
 
 class Employee(db.Model):
@@ -55,6 +63,10 @@ class Employee(db.Model):
     def category(cls):
         return u'员工'
 
+    @classmethod
+    def name(cls):
+        return u'员工信息'
+
 
 class Supplier(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -69,6 +81,10 @@ class Supplier(db.Model):
     def category(cls):
         return u'供货商'
 
+    @classmethod
+    def name(cls):
+        return u'供货商信息'
+
 
 class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -82,6 +98,10 @@ class Inventory(db.Model):
     @classmethod
     def category(cls):
         return u'库存部'
+
+    @classmethod
+    def name(cls):
+        return u'库存信息'
 
 
 class Product(db.Model):
@@ -98,6 +118,10 @@ class Product(db.Model):
     @classmethod
     def category(cls):
         return u'产品'
+
+    @classmethod
+    def name(cls):
+        return u'产品信息'
 
 
 class Delorder(db.Model):
@@ -117,6 +141,10 @@ class Delorder(db.Model):
     def category(cls):
         return u'订单'
 
+    @classmethod
+    def name(cls):
+        return u'删除订单'
+
 
 class Delorderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -131,6 +159,10 @@ class Delorderinfo(db.Model):
 
     @classmethod
     def category(cls):
+        return u'Other'
+
+    @classmethod
+    def name(cls):
         return u'Other'
 
 
@@ -150,6 +182,10 @@ class Lackorder(db.Model):
     def category(cls):
         return u'订单'
 
+    @classmethod
+    def name(cls):
+        return u'缺货单'
+
 
 class Orderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -165,6 +201,10 @@ class Orderinfo(db.Model):
 
     @classmethod
     def category(cls):
+        return u'Other'
+
+    @classmethod
+    def name(cls):
         return u'Other'
 
 
@@ -183,6 +223,10 @@ class Preorder(db.Model):
     def category(cls):
         return u'订单'
 
+    @classmethod
+    def name(cls):
+        return u'备货单'
+
 
 class Preorderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -198,6 +242,10 @@ class Preorderinfo(db.Model):
 
     @classmethod
     def category(cls):
+        return u'Other'
+
+    @classmethod
+    def name(cls):
         return u'Other'
 
 
@@ -222,6 +270,10 @@ class Paybillaccount(db.Model):
     def category(cls):
         return u'财务部'
 
+    @classmethod
+    def name(cls):
+        return u'付款账户'
+
 
 class Puraccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -242,6 +294,10 @@ class Puraccount(db.Model):
     @classmethod
     def category(cls):
         return u'财务部'
+
+    @classmethod
+    def name(cls):
+        return u'采购账户'
 
 
 class Sellaccount(db.Model):
@@ -264,6 +320,10 @@ class Sellaccount(db.Model):
     def category(cls):
         return u'财务部'
 
+    @classmethod
+    def name(cls):
+        return u'销售账户'
+
 
 class Purorder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -284,6 +344,10 @@ class Purorder(db.Model):
     def category(cls):
         return u'订单'
 
+    @classmethod
+    def name(cls):
+        return u'采购订单'
+
 
 class Reminder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -303,6 +367,10 @@ class Reminder(db.Model):
     def category(cls):
         return u'提醒'
 
+    @classmethod
+    def name(cls):
+        return u'订单提醒'
+
 
 class Reminderinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -319,6 +387,10 @@ class Reminderinfo(db.Model):
 
     @classmethod
     def category(cls):
+        return u'Other'
+
+    @classmethod
+    def name(cls):
         return u'Other'
 
 
@@ -338,6 +410,10 @@ class Reorder(db.Model):
     @classmethod
     def category(cls):
         return u'订单'
+
+    @classmethod
+    def name(cls):
+        return u'再订货订单'
 
 
 class Torder(db.Model):
@@ -359,6 +435,10 @@ class Torder(db.Model):
     def category(cls):
         return u'订单'
 
+    @classmethod
+    def name(cls):
+        return u'订单信息'
+
 
 class Shoppingcart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -374,4 +454,8 @@ class Shoppingcart(db.Model):
 
     @classmethod
     def category(cls):
+        return u'Other'
+
+    @classmethod
+    def name(cls):
         return u'Other'
