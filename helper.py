@@ -8,8 +8,8 @@ from app import db
 
 # Define login and registration forms (for flask-login)
 class LoginForm(wtf.Form):
-    login = wtf.TextField(validators=[wtf.required()])
-    password = wtf.PasswordField(validators=[wtf.required()])
+    login = wtf.TextField(u'用户名', validators=[wtf.required()])
+    password = wtf.PasswordField(u'密码', validators=[wtf.required()])
 
     def validate_login(self, field):
         user = self.get_user()
@@ -25,9 +25,9 @@ class LoginForm(wtf.Form):
 
 
 class RegistrationForm(wtf.Form):
-    login = wtf.TextField(validators=[wtf.required()])
-    email = wtf.TextField()
-    password = wtf.PasswordField(validators=[wtf.required()])
+    login = wtf.TextField(u'用户名', validators=[wtf.required()])
+    email = wtf.TextField(u'邮箱')
+    password = wtf.PasswordField(u'密码', validators=[wtf.required()])
 
     def validate_login(self, field):
         if db.session.query(User).filter_by(login=self.login.data).count() > 0:
@@ -35,10 +35,10 @@ class RegistrationForm(wtf.Form):
 
 
 class CustomerForm(wtf.Form):
-    name = wtf.TextField(validators=[wtf.required()])
-    address = wtf.TextField(validators=[wtf.required()])
-    phone = wtf.TextField(validators=[wtf.required()])
-    email = wtf.TextField(validators=[wtf.required()])
+    name = wtf.TextField(u'用户名', validators=[wtf.required()])
+    address = wtf.TextField(u'地址', validators=[wtf.required()])
+    phone = wtf.TextField(u'电话', validators=[wtf.required()])
+    email = wtf.TextField(u'邮箱', validators=[wtf.required()])
 
     def validate_login(self, field):
         if not login.current_user.is_authenticated():
