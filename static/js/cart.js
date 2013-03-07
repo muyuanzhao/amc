@@ -20,4 +20,9 @@ simpleCart({
 	{ view: "currency", attr: "total", label: "小项合计" },
     ],
     cartStyle: "div",
+    checkout: { 
+        type: "SendForm" ,
+        url: "/checkout/",
+        method: "POST"
+    }
 });

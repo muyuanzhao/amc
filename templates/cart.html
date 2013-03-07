@@ -11,6 +11,15 @@
 {% block tail %}
     <script src="{{ url_for('static', filename='js/simpleCart.min.js') }}"></script>
     <script>
+       simpleCart.currency({
+           code: "CNY" ,
+           name: "Chinese Yuan" ,
+           symbol: "¥" ,
+           delimiter: " " , 
+           decimal: "." , 
+           after: true ,
+           accuracy: 2
+        });
         simpleCart({
             //Setting the Cart Columns for the sidebar cart display.
             cartColumns: [

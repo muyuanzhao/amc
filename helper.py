@@ -35,7 +35,6 @@ class RegistrationForm(wtf.Form):
 
 
 class CustomerForm(wtf.Form):
-    name = wtf.TextField(u'用户名', validators=[wtf.required()])
     address = wtf.TextField(u'地址', validators=[wtf.required()])
     phone = wtf.TextField(u'电话', validators=[wtf.required()])
     email = wtf.TextField(u'邮箱', validators=[wtf.required()])

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from flask import url_for, redirect, render_template, request
+from time import gmtime, strftime
+
+from flask import url_for, redirect, render_template, request, flash
 from flask.ext import login, admin
 from app import app, db
 
@@ -28,15 +30,62 @@ def init_login():
 def index():
     return redirect(url_for('admin.index'))
 
+@app.route('/checkout/', methods=['GET', 'POST'])
+def checkout():
+    userId = login.current_user.id
+    customer = db.session.query(Customer).filter_by(userId=userId).first()
+    if not customer:
+        return redirect(url_for('reg_customer_view'))
+    
+    form = request.form
+    currency = form['currency']
+    shipping = form['shipping']
+    tax = form['tax']
+    taxRate = form['taxRate']
+    itemCount = int(form['itemCount'])
 
-@app.route('/reg_customer/')
+    items = []
+    for i in range(itemCount):
+        item = {}
+        item['name'] = form['item_name_%s' % (i+1)]
+        item['count'] = int(form['item_quantity_%s' % (i+1)])
+        item['price'] = float(form['item_price_%s' % (i+1)])
+        items.append(item)
+    
+    status = handle_order(items, customer)
+    if status:
+        flash(u'订单提交成功!')
+    else:
+        flash(u'订单提交失败，请重试!')
+    return redirect(url_for('index'))
+
+def handle_order(items, customer):
+    receiver = customer.accountName
+    receiverAdd = customer.address
+    receiverPhone = customer.phone
+    orderStatus = 'ready'
+    orderTime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    totalMoney = 0.0
+    for item in items:
+        totalMoney += item['count'] * item['price']
+    torder = Torder(customer=customer, receiver=receiver, receiverAdd=receiverAdd,
+                    receiverPhone=receiverPhone, orderStatus=orderStatus, 
+                    orderTime=orderTime, totalMoney=totalMoney, type=0)
+    db.session.add(torder)
+    db.session.commit()
+    db.session.refresh(torder)
+    orderId = torder.id
+    #todo: insert items into orderInfo table
+    return True
+
+@app.route('/reg_customer/', methods=('GET', 'POST'))
 def reg_customer_view():
     form = CustomerForm(request.form)
     if form.validate_on_submit():
         customer = Customer()
 
         form.populate_obj(customer)
-
+        customer.accountName = login.current_user.login
         customer.userId = login.current_user.id
 
         db.session.add(customer)
