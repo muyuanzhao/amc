@@ -100,22 +100,22 @@ if __name__ == '__main__':
             else:
                 admin.add_view(MyModelView(m, db.session, name=n, category=c))
 
-    admin.add_view(RoleView(User, db.session))
-    admin.add_view(CartView(name='Cart'))
+    admin.add_view(RoleView(User, db.session, name=u'用户'))
+    admin.add_view(CartView(name=u'购物车'))
 
     # Add username link
     admin.add_link(UsernameMenuLink(url='#'))
 
     # Add register link by endpoint
-    admin.add_link(NotAuthenticatedMenuLink(name='Register',
+    admin.add_link(NotAuthenticatedMenuLink(name=u'注册',
                                             endpoint='register_view'))
 
     # Add login link by endpoint
-    admin.add_link(NotAuthenticatedMenuLink(name='Login',
+    admin.add_link(NotAuthenticatedMenuLink(name=u'登录',
                                             endpoint='login_view'))
 
     # Add logout link by endpoint
-    admin.add_link(AuthenticatedMenuLink(name='Logout',
+    admin.add_link(AuthenticatedMenuLink(name=u'登出',
                                          endpoint='logout_view'))
     # Create DB
     db.create_all()

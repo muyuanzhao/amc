@@ -1,6 +1,9 @@
 {% extends 'admin/index.html' %}
 
 {% block body %}
+    <div id="popoverButtons" class="clearfix">
+      <a href="javascript:;" class="simpleCart_checkout hudbtn primary right">付款</a>
+    </div>
     <!-- show the cart -->
     <div class="simpleCart_items"></div>
 {% endblock %}
@@ -13,15 +16,15 @@
             cartColumns: [
                 { attr: "image", label: false, view: "image"},
                 //Name of the item
-                { attr: "name" , label: "Name" },
+                { attr: "name" , label: "名称" },
                 //Quantity displayed as an input
-                { attr: "quantity", label: "Quantity", view: "input"},
+                { attr: "quantity", label: "数量", view: "input"},
                 //Built in view for a remove link
-                { view:'remove', text: "Remove", label: false},
+                { view:'remove', text: "移除", label: false},
                 //Price of item
-                { attr: "price", label: "Price"},
+                { attr: "price", label: "价格"},
                 //Subtotal of that row (quantity of that item * the price)
-                { attr: "total" , label: "Subtotal", view: "currency"  }
+                { attr: "total" , label: "小项合计", view: "currency"  }
             ],
             cartStyle: "table"
         });
