@@ -77,13 +77,9 @@
     {% endwith %}
 
     <div class="container">
+      <h2>{% if admin_view.category and admin_view.name %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }}</h2>
       <p>
-	</br>
-	{% if admin_view.category %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }}
-      </p>
-      <p>
-	描述:</br>
-	{% if admin_view.desc %}{{ admin_view.desc }}{% endif %}
+	{% if admin_view.desc %}描述:</br>{{ admin_view.desc }}{% endif %}
       </p>
       {% block body %}{% endblock %}
     </div>
