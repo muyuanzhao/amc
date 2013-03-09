@@ -75,3 +75,4 @@ orderNum 订货数量
 orderInfoStatus 订货状态
 preOrderNum 备货数量
 preOrderPerson 备货人
+preorder 备货单

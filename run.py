@@ -30,6 +30,7 @@ def init_login():
 def index():
     return redirect(url_for('admin.index'))
 
+
 @app.route('/checkout/', methods=['GET', 'POST'])
 def checkout():
     userId = login.current_user.id
@@ -47,17 +48,18 @@ def checkout():
     items = []
     for i in range(itemCount):
         item = {}
-        item['name'] = form['item_name_%s' % (i+1)]
+        item['id'] = int(form['item_name_%s' % (i+1)].split('_')[1])
         item['count'] = int(form['item_quantity_%s' % (i+1)])
         item['price'] = float(form['item_price_%s' % (i+1)])
         items.append(item)
     
-    status = handle_order(items, customer)
-    if status:
-        flash(u'订单提交成功!')
+    orderId = handle_order(items, customer)
+    if orderId:
+        flash(u'订单提交成功! 订单号: %s' % orderId)
     else:
         flash(u'订单提交失败，请重试!')
     return redirect(url_for('index'))
+
 
 def handle_order(items, customer):
     receiver = customer.accountName
@@ -72,11 +74,50 @@ def handle_order(items, customer):
                     receiverPhone=receiverPhone, orderStatus=orderStatus, 
                     orderTime=orderTime, totalMoney=totalMoney, type=0)
     db.session.add(torder)
+
+    preorder = Preorder(torder=torder, prePerson='xiaoshou', preOrderTime=orderTime, preOrderStatus='ready')
+    db.session.add(preorder)
+
+    is_lack = False
+    for item in items:
+        i_id = item['id']
+        count = item['count']
+        inventory = Inventory.query.filter_by(id=i_id).first()
+        if inventory:
+            inventory_num = inventory.number
+            if count > inventory_num:
+                is_lack = True
+                s = 'lack'
+            else:
+                s = 'ready'
+            orderinfo = Orderinfo(torder=torder, productId=item['id'], orderNum=item['count'], orderInfoStatus=s)
+            if s == 'lack':
+                if not handle_lack_order(item, orderinfo, count-inventory_num, orderTime):
+                    return False
+            elif s == 'ready':
+                if not handle_pre_order(item, orderinfo, preorder, count, orderTime):
+                    return False
+        else:
+            return False
+        db.session.add(orderinfo)
+    if is_lack:
+        torder.orderStatus = 'lack'
     db.session.commit()
     db.session.refresh(torder)
     orderId = torder.id
-    #todo: insert items into orderInfo table
+    return orderId
+
+
+def handle_pre_order(item, orderinfo, preorder, count, orderTime):
+    preorderinfo = Preorderinfo(preorder=preorder, orderinfo=orderinfo, preOrderNum=count, preOrderPerson='xiaoshou')
+    db.session.add(preorderinfo)
     return True
+
+def handle_lack_order(item, orderinfo, num, orderTime):
+    lackorder = Lackorder(orderinfo=orderinfo, lackNum=num, lackPerson='xiaoshou', lackTime=orderTime, lackOrderStatus='lack')
+    db.session.add(lackorder)
+    return True
+
 
 @app.route('/reg_customer/', methods=('GET', 'POST'))
 def reg_customer_view():
