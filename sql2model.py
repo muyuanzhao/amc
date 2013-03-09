@@ -1,7 +1,6 @@
 #-*- coding: utf-8 -*-
-
 '''
-A simple script for transforming sql to python model class, it is just hard coding 
+A simple script for transforming sql to python model class, it is just hard coding
 not involved with SQL grammar structure.Our sql file doesn't contain FK definition,
 so we identify it by column attribute name, like xxxId.
 '''
@@ -100,7 +99,7 @@ def create_sql(sql):
                 attrs.append("    %s = db.Column(%s, db.ForeignKey('%s.id'))" % (attr_name,
                                                                                  attr_type, attr_name_without_id))
                 attrs.append("    %s = db.relationship('%s', primaryjoin='%s.id==%s.%s')" % (attr_name_without_id,
-                                                                                             attr_name_without_id.capitalize(), 
+                                                                                             attr_name_without_id.capitalize(),
                                                                                              attr_name_without_id.capitalize(),
                                                                                              class_name, attr_name))
             else:
@@ -178,6 +177,7 @@ for line in sql_lines:
 #output to py
 f = codecs.open('auto_model.py', 'w', encoding='utf-8')
 f.write('# -*- coding: utf-8 -*-\n\n')
+f.write('from model import User\n')
 f.write('from app import db\n\n')
 f.write('__all__ = [%s]\n\n\n' % ', '.join(output_names))
 f.write('\n\n\n'.join(output_classes))
