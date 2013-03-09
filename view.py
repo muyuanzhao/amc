@@ -27,7 +27,7 @@ class MyModelView(sqlamodel.ModelView):
         for line in tf.readlines():
             db_name, view_name = line.strip().split()
             column_labels[db_name] = view_name
-    
+
     def __init__(self, model, session,
                  name=None, category=None, endpoint=None, url=None, desc=None):
         self.desc = desc
@@ -45,5 +45,5 @@ class RoleView(MyModelView):
     form_args = dict(
         # Pass the choices to the `SelectField`
         role=dict(
-            choices=[('0', 'customer'), ('1', 'employee')]
+            choices=[('0', u'顾客'), ('1', u'管理员'), ('2', u'销售'), ('3', u'财务'), ('4', u'采购'), ('5', u'库存'), ('6', u'发货')]
         ))
