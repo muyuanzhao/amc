@@ -87,10 +87,11 @@ def reg_customer_view():
         form.populate_obj(customer)
         customer.accountName = login.current_user.login
         customer.userId = login.current_user.id
+        customer.email = login.current_user.email
 
         db.session.add(customer)
         db.session.commit()
-
+        flash(u'注册顾客信息成功，请重新提交订单!')
         return redirect(url_for('index'))
 
     return render_template('form.html', form=form)

@@ -18,9 +18,9 @@ OPS = ('SET',
        'CREATE',
        )
 
-category_dict = {'Credit': u'销售部', 'Customer': u'销售部', 'Delorder': u'订单', 'Delorderinfo': 'Other', 'Employee': u'员工', 'Inventory': u'库存部', 'Lackorder': u'订单', 'Orderinfo': 'Other',  'Paybillaccount': u'财务部', 'Preorder': u'订单', 'Preorderinfo': 'Other', 'Product': u'产品', 'Puraccount': u'财务部', 'Purorder': u'订单', 'Reminder': u'提醒', 'Reminderinfo': 'Other', 'Reorder': u'订单', 'Sellaccount': u'财务部', 'Shoppingcart': 'Other', 'Supplier': u'供货商', 'Torder': u'订单'}
+category_dict = {'Credit': u'销售部', 'Customer': u'销售部', 'Delorder': u'订单', 'Delorderinfo': 'Other', 'Employee': u'员工', 'Inventory': u'库存部', 'Lackorder': u'订单', 'Orderinfo': u'订单',  'Paybillaccount': u'财务部', 'Preorder': u'订单', 'Preorderinfo': u'订单', 'Product': u'库存部', 'Puraccount': u'财务部', 'Purorder': u'订单', 'Reminder': u'提醒', 'Reminderinfo': 'Other', 'Reorder': u'订单', 'Sellaccount': u'财务部', 'Shoppingcart': 'Other', 'Supplier': u'采购部', 'Torder': u'订单'}
 
-name_dict = {'Credit': u'客户信用', 'Customer': u'客户信息', 'Delorder': u'删除订单', 'Delorderinfo': 'Other', 'Employee': u'员工信息', 'Inventory': u'库存信息', 'Lackorder': u'缺货单', 'Orderinfo': 'Other',  'Paybillaccount': u'付款账户', 'Preorder': u'备货单', 'Preorderinfo': 'Other', 'Product': u'产品信息', 'Puraccount': u'采购账户', 'Purorder': u'采购订单', 'Reminder': u'订单提醒', 'Reminderinfo': 'Other', 'Reorder': u'再订货订单', 'Sellaccount': u'销售账户', 'Shoppingcart': 'Other', 'Supplier': u'供货商信息', 'Torder': u'订单信息'}
+name_dict = {'Credit': u'客户信用', 'Customer': u'客户信息', 'Delorder': u'删除订单', 'Delorderinfo': 'Other', 'Employee': u'员工信息', 'Inventory': u'库存信息', 'Lackorder': u'缺货单', 'Orderinfo': u'订单详情',  'Paybillaccount': u'付款账户', 'Preorder': u'备货单', 'Preorderinfo': u'备货单详情', 'Product': u'产品信息', 'Puraccount': u'采购账户', 'Purorder': u'采购订单', 'Reminder': u'订单提醒', 'Reminderinfo': 'Other', 'Reorder': u'再订货订单', 'Sellaccount': u'销售账户', 'Shoppingcart': 'Other', 'Supplier': u'供货商信息', 'Torder': u'订单信息'}
 
 desc_dict = {'Credit': u'在填写备货单时，要查阅顾客档案，将顾客的详细收货地址、收货人、顾客的信用及其它有关内容镇人。在收到新顾客的订单后，由负责处理此订单的人员将该顾客的详细情况记载在顾客档案中。会计室要及时将顾客的失信情况填写失信通知单（附表8）通知销售办公室，由销售办公室记录在顾客档案上。',
              'Torder': u'销售办公室的李英专门负责订单校验，若遇有填写不清楚或错误的订单退回给顾客。然后，由张小辉等三人根据订单上的配件项目，逐项查阅库存记录，将缺货项目和可供货项目分开。',
@@ -33,6 +33,8 @@ desc_dict = {'Credit': u'在填写备货单时，要查阅顾客档案，将顾�
              'Paybillaccount': u'在收到供货厂家的催款单后，记应付帐、付款。待发票寄来后，还要转采购业务帐。',
              'Puraccount': u'通常，本公司的采购部是采用订单订货，当收到厂家发来的汽车配件和催款单后，根据订单留底进行货、款核对，然后，催款单交会计室，验收后的配件交库房，另外，填写进货通知单（附表9）一式两份，一份随同配件送库房，一份送销售办公室。'
              }
+
+roles_dict = {'Credit': ['1', '2'], 'Customer': ['1', '2'], 'Delorder': ['1'], 'Delorderinfo': ['1'], 'Employee': ['1'], 'Inventory': ['1', '5'], 'Lackorder': ['1', '2'], 'Orderinfo': ['1', '2'],  'Paybillaccount': ['1', '3'], 'Preorder': ['1', '2'], 'Preorderinfo': ['1', '2'], 'Product': ['1', '4', '5'], 'Puraccount': ['1', '3'], 'Purorder': ['1', '4'], 'Reminder': ['1'], 'Reminderinfo': ['1'], 'Reorder': ['1', '2'], 'Sellaccount': ['1', '3'], 'Shoppingcart': ['1'], 'Supplier': ['1', '4'], 'Torder': ['1', '2']}
 
 sql_file = codecs.open('amc.sql', 'r', encoding='utf-8')
 sql_lines = sql_file.readlines()
@@ -73,6 +75,7 @@ def create_sql(sql):
     category = category_dict.get(class_name, 'Other')
     name = name_dict.get(class_name, 'Other')
     desc = desc_dict.get(class_name, 'None')
+    roles = roles_dict.get(class_name, [])
     for line in sql[1:-1]:
         if line.startswith('PRIMARY KEY'):
             pk = line.split()[2][2:-2]
@@ -127,7 +130,13 @@ def create_sql(sql):
     desc_function = '\n'
     desc_function += '    @classmethod\n'
     desc_function += "    def desc(cls):\n"
-    desc_function += "        return u'%s'" % desc
+    desc_function += "        return u'%s'\n" % desc
+
+    roles_function = '\n'
+    roles_function += '    @classmethod\n'
+    roles_function += "    def roles(cls):\n"
+    roles_function += "        return %s" % str(roles)
+
 
     class_lines = "class %s(db.Model):\n" % class_name
     class_lines += attrs
@@ -135,6 +144,7 @@ def create_sql(sql):
     class_lines += category_function
     class_lines += name_function
     class_lines += desc_function
+    class_lines += roles_function
     return "'%s'" % class_name, class_lines
 
 comment_flag = False

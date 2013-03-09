@@ -35,9 +35,8 @@ class RegistrationForm(wtf.Form):
 
 
 class CustomerForm(wtf.Form):
-    address = wtf.TextField(u'地址', validators=[wtf.required()])
-    phone = wtf.TextField(u'电话', validators=[wtf.required()])
-    email = wtf.TextField(u'邮箱', validators=[wtf.required()])
+    address = wtf.TextField(u'收获地址', validators=[wtf.required()])
+    phone = wtf.TextField(u'联系电话', validators=[wtf.required()])
 
     def validate_login(self, field):
         if not login.current_user.is_authenticated():

@@ -71,3 +71,7 @@ name 名称
 quantity 数量
 price 价格
 subtotal 小计
+orderNum 订货数量
+orderInfoStatus 订货状态
+preOrderNum 备货数量
+preOrderPerson 备货人

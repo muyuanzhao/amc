@@ -29,6 +29,10 @@ class User(db.Model):
     def get_id(self):
         return self.id
 
+    @classmethod
+    def roles(cls):
+        return ['1']
+
     # Required for administrative interface
     def __unicode__(self):
         return self.login
