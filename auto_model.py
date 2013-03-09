@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from model import User
 from app import db
 
 __all__ = ['Customer', 'Credit', 'Employee', 'Supplier', 'Inventory', 'Product', 'Delorder', 'Delorderinfo', 'Lackorder', 'Orderinfo', 'Preorder', 'Preorderinfo', 'Paybillaccount', 'Puraccount', 'Sellaccount', 'Purorder', 'Reminder', 'Reminderinfo', 'Reorder', 'Torder', 'Shoppingcart']
