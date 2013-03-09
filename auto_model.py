@@ -78,7 +78,7 @@ class Employee(db.Model):
 
     @classmethod
     def category(cls):
-        return u'员工'
+        return u'事务管理'
 
     @classmethod
     def name(cls):
@@ -188,11 +188,11 @@ class Delorder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'事务管理'
 
     @classmethod
     def name(cls):
-        return u'删除订单'
+        return u'已删除订单'
 
     @classmethod
     def desc(cls):
@@ -216,11 +216,11 @@ class Delorderinfo(db.Model):
 
     @classmethod
     def category(cls):
-        return u'Other'
+        return u'事务管理'
 
     @classmethod
     def name(cls):
-        return u'Other'
+        return u'已删除订单详情'
 
     @classmethod
     def desc(cls):
@@ -245,7 +245,7 @@ class Lackorder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'采购部'
 
     @classmethod
     def name(cls):
@@ -257,7 +257,7 @@ class Lackorder(db.Model):
 
     @classmethod
     def roles(cls):
-        return ['1', '2']
+        return ['1', '4']
 
 
 class Orderinfo(db.Model):
@@ -274,7 +274,7 @@ class Orderinfo(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'销售部'
 
     @classmethod
     def name(cls):
@@ -302,7 +302,7 @@ class Preorder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'发货部'
 
     @classmethod
     def name(cls):
@@ -314,7 +314,7 @@ class Preorder(db.Model):
 
     @classmethod
     def roles(cls):
-        return ['1', '2']
+        return ['1', '6']
 
 
 class Preorderinfo(db.Model):
@@ -331,7 +331,7 @@ class Preorderinfo(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'发货部'
 
     @classmethod
     def name(cls):
@@ -343,7 +343,7 @@ class Preorderinfo(db.Model):
 
     @classmethod
     def roles(cls):
-        return ['1', '2']
+        return ['1', '6']
 
 
 class Paybillaccount(db.Model):
@@ -463,7 +463,7 @@ class Purorder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'采购部'
 
     @classmethod
     def name(cls):
@@ -494,11 +494,11 @@ class Reminder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'提醒'
+        return u'事务管理'
 
     @classmethod
     def name(cls):
-        return u'订单提醒'
+        return u'删除提醒详情'
 
     @classmethod
     def desc(cls):
@@ -524,11 +524,11 @@ class Reminderinfo(db.Model):
 
     @classmethod
     def category(cls):
-        return u'Other'
+        return u'事务管理'
 
     @classmethod
     def name(cls):
-        return u'Other'
+        return u'删除提醒详情'
 
     @classmethod
     def desc(cls):
@@ -554,7 +554,7 @@ class Reorder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'销售部'
 
     @classmethod
     def name(cls):
@@ -586,7 +586,7 @@ class Torder(db.Model):
 
     @classmethod
     def category(cls):
-        return u'订单'
+        return u'销售部'
 
     @classmethod
     def name(cls):
