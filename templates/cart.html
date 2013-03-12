@@ -35,7 +35,12 @@
                 //Subtotal of that row (quantity of that item * the price)
                 { attr: "total" , label: "小项合计", view: "currency"  }
             ],
-            cartStyle: "table"
+            cartStyle: "table",
+            checkout: { 
+                type: "SendForm" ,
+                url: "/checkout/",
+                method: "POST"
+            }
         });
     </script>
 {% endblock %}
